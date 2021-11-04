@@ -69,6 +69,7 @@
 (require 'init-windows)
 (require 'init-sessions)
 (require 'init-mmm)
+(require 'init-ivy)
 
 (require 'init-editing-utils)
 (require 'init-whitespace)
@@ -130,6 +131,7 @@
 ;;(require 'init-twitter)
 ;; (require 'init-mu)
 (require 'init-ledger)
+(require 'init-evil)
 ;; Extra packages which don't require any configuration
 
 (require-package 'sudo-edit)
