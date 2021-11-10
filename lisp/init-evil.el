@@ -11,6 +11,9 @@
 (global-evil-leader-mode)
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key
+  "i" 'evil-jump-forward
+  "o" 'evil-jump-backward
+  "u" 'undo
   "." 'evil-scroll-page-down
   "," 'evil-scroll-page-up
   "<SPC>" 'execute-extended-command
@@ -32,13 +35,22 @@
   "ff" 'counsel-find-file
   "fs" 'save-buffer
   "fx" 'execute-this-buffer
+  "fr" 'rename-this-file-and-buffer
+  "fd" 'delete-this-file
   "bk" 'kill-buffer
   "bb" 'switch-to-buffer
   "pR" 'projectile-regenerate-tags
+  "pa" 'projectile-add-known-project
   "pj" 'projectile-find-tag
   "pf" 'projectile-find-file
   "pd" 'projectile-find-dir
-  "xx" 'execute-this-buffer
+  "pp" 'projectile-switch-project
+  "pib" 'platformio-build
+  "piu" 'platformio-upload
+  "pic" 'platformio-clean
+  "pid" 'platformio-update
+  "pim" 'platformio-device-monitor
+  "xl" 'pp-eval-last-sexp
   )
 ;;; remove default evil-toggle-key C-z, manually setup later
 (setq evil-toggle-key "")
@@ -54,7 +66,7 @@
 (define-key evil-insert-state-map [escape] 'evil-normal-state)
 
 ;;; TAB to indent in normal-state
-(define-key evil-normal-state-map (kbd "TAB") 'indent-for-tab-command)
+(define-key evil-normal-state-map (kbd "TAB") 'evil-indent-line)
 
 (define-key evil-normal-state-map (kbd ",") 'scroll-down-line)
 (define-key evil-normal-state-map (kbd ".") 'scroll-up-line)
@@ -65,7 +77,7 @@
 
 ;;; user j/k to move one visual line instead of gj/gk
 (define-key evil-normal-state-map (kbd "<remap> <evil-next-line>")
-    'evil-next-visual-line)
+  'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "<remap> <evil-previous-line>")
   'evil-previous-visual-line)
 (define-key evil-motion-state-map (kbd "<remap> <evil-next-line>")

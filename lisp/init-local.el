@@ -16,8 +16,15 @@
 (require-package 'ninja-mode)
 (require-package 'rpn-calc)
 (require-package 'neotree)
+(require-package 'platformio-mode)
 (require 'init-evil)
 
+(require 'platformio-mode)
+;; Enable ccls for all c++ files, and platformio-mode only
+;; when needed (platformio.ini present in project root).
+(add-hook 'c++-mode-hook (lambda ()
+                           (lsp-deferred)
+                           (platformio-conditionally-enable)))
 (defun sudo-reopen ()
   "Reopen current file with sudo."
   (setq sudo-file-real-path
@@ -176,6 +183,7 @@
 (global-set-key (kbd "C-h C-k") 'find-function-on-key)
 (global-set-key (kbd "C-,") 'scroll-down-line)
 (global-set-key (kbd "C-.") 'scroll-up-line)
+(define-key key-translation-map (kbd "M-;") 'comment-dwim)
 
 (define-key visual-line-mode-map [remap kill-line] nil)
 (define-key visual-line-mode-map [remap move-beginning-of-line] nil)
@@ -236,9 +244,11 @@
 (require 'iedit)
 (require-package 'helm-ag)
 (require-package 'window-numbering)
-(require-package 'company-tabnine)
-;;(add-to-list 'company-backend #'company-tabnine)
 (window-numbering-mode)
+
+(when (maybe-require-package 'company-tabnine)
+  (with-eval-after-load 'company
+    (add-to-list 'company-backends 'company-tabnine)))
 
 ;; Trigger completion immediately.
 (setq company-idle-delay 0)

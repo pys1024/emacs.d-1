@@ -156,7 +156,7 @@
 (global-set-key (kbd "C-x C-.") 'pop-global-mark)
 
 (when (maybe-require-package 'avy)
-  (global-set-key (kbd "C-;") 'avy-goto-char-timer))
+  (global-set-key (kbd "C-c C-;") 'avy-goto-char-timer))
 
 (require-package 'multiple-cursors)
 ;; multiple-cursors
